@@ -3,7 +3,7 @@ import GuestContext from '../../context/guestContext/guestContext';
 
 export default function GuestForm() {
 
-  const { addGuest, edit } = useContext(GuestContext);
+  const { addGuest, edit, updateGuest, clearEdit } = useContext(GuestContext);
 
   useEffect(() => {
     if(edit !== null) {
@@ -36,17 +36,22 @@ export default function GuestForm() {
   const onSubmit = (e) =>{
     e.preventDefault();
 
-    addGuest(guest);
+    if(edit !== null) {
+      updateGuest(guest);
+      clearEdit();
+    } else { 
+      addGuest(guest);
 
-    setGuest({
-      name: '',
-      phone: '',
-      dietary: 'Non-Veg'
-    })
+      setGuest({
+        name: '',
+        phone: '',
+        dietary: 'Non-Veg'
+      })
+    }
   }
     return (
         <div className="invite-section">
-      <h1>Invite Someone</h1>
+      <h1>{ edit !== null ? 'Edit Guest' : 'Invite Someone'}</h1>
       <form onSubmit={onSubmit}>
         <input type="text" placeholder="Name" name="name" value={name} onChange={handleChange} required />
         <input type="text" placeholder="Phone" name="phone" value={phone} onChange={handleChange} required />
@@ -61,11 +66,13 @@ export default function GuestForm() {
             <span className="checkmark"></span>
           </label>
           <label className="container">Pascatarian
-        <input type="radio" name="dietary" value='Pesacatarian' onChange={handleChange} checked={dietary==='Pascatarian'}/>
+        <input type="radio" name="dietary" value='Pascatarian' onChange={handleChange} checked={dietary==='Pascatarian'}/>
             <span className="checkmark"></span>
           </label>
         </div>
-        <input type="submit" value="Add Guest" className="btn" />
+        <input type="submit" value={edit !== null ? 'Update Guest' : 'Add Guest'} className="btn" />
+
+        { edit !== null ? <input onClick={clearEdit} value="Cancel" type="button" className="btn clear" /> : null}
       </form>
     </div>
     )
