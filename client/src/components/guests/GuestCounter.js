@@ -5,7 +5,7 @@ export default function GuestCounter() {
 
   const { guests } = useContext(GuestContext);
   const totalInvited = guests.length;
-  const attending = guests.filter(guest => guest.isConfirmed);
+  const attending = guests.filter(guest => guest.isconfirmed);
   const totalAttending = attending.length;
 
   const invitedByDiet = (type) => guests.filter(guest => guest.dietary === type).length;

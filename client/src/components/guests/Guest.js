@@ -3,21 +3,21 @@ import GuestContext from '../../context/guestContext/guestContext';
 
 export default function Guest({ guest }) {
     const { removeGuest, updateGuest, editGuest } = useContext(GuestContext);
-    const { id, name, phone, dietary, isConfirmed } = guest;
+    const { _id, name, phone, dietary, isconfirmed } = guest;
 
     const handleRemove = () => {
-      removeGuest(id);
+      removeGuest(_id);
     }
 
     const handleIsConfirmed = () => {
-      updateGuest({ ...guest, isConfirmed: !isConfirmed })
+      updateGuest({ ...guest, isconfirmed: !isconfirmed })
     }
     return (
         <div className="guest-card">
             <div className="card-head">
         <div>
-          <label className={`${isConfirmed && 'confirm'}`}> Confirmed
-        <i className={`fas fa-check-square ${isConfirmed && 'confirm'} `} >
+          <label className={`${isconfirmed && 'confirm'}`}> Confirmed
+        <i className={`fas fa-check-square ${isconfirmed && 'confirm'}`} >
               <input type="checkbox" onChange={handleIsConfirmed}/>
             </i>
           </label>
